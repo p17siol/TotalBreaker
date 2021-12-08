@@ -1,14 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject spawning;
-    [SerializeField] private float spawnTime;
+    [SerializeField] private GameObject ballPrefab;
+    [SerializeField] private int spawnNum;
     [SerializeField] private float spawnDelay;
-    [SerializeField] private bool stopSpawning = false;
-
+    
     private Vector2 GetMousePosition()
     {
         Vector2 mousePos = Input.mousePosition;
@@ -16,26 +16,72 @@ public class Spawner : MonoBehaviour
         return mousePostoWorld;
     }
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
+       /* Debug.Log("Game 's running!!!!");
+        if (Input.GetMouseButtonDown(0))
+        {
+            SpawnNextBurst();
+            //FindObjectOfType<DestroyBall>().DeleteAll();
+        }*/
     }
 
-    void SpawnObject()
+    public bool IsBurstActive()
     {
-        Vector2 dir = (GetMousePosition() - (Vector2)transform.position).normalized;
-        GameObject currentBall = Instantiate(spawning, transform.position, transform.rotation);
-        //Vector2 dir1 = dir;
-        currentBall.GetComponent<Ball>().Fire = dir;
-        if (stopSpawning)
+        //FindObjectOfType<DestroyBall>().DeleteAll();
+        Ball[] balls = FindObjectsOfType<Ball>();
+        Debug.Log("balls left= " + balls.Length);
+        return balls.Length > 0;
+    }
+
+    //Spawns next burst
+    public void SpawnNextBurst()
+    {
+        Debug.Log("Start is working");
+        if (!IsBurstActive())
         {
-            CancelInvoke("SpawnObject");
+            List<GameObject> balls = BallsBurst(spawnNum);
+            Debug.Log("balls = " + balls.Count);
+            StartCoroutine(EnableBurst(balls));
         }
     }
 
-    // Update is called once per frame
+    //private List<GameObject> BallsBurst(int spawnNum)
+    private List<GameObject> BallsBurst(int spawnNum)
+    {
+        List<GameObject> balls = new List<GameObject>();
+        for (int i = 0; i < spawnNum; i++)
+        {
+            GameObject ball = Instantiate(ballPrefab, transform.position, transform.rotation) as GameObject;
+            balls.Add(ball);
+        }
+        return balls;
+    }
+
+    IEnumerator EnableBurst(List<GameObject> balls) 
+    {
+        //FindObjectOfType<DestroyBall>().DeleteAll();
+        int a = balls.Count;
+        Vector2 dir = (GetMousePosition() - (Vector2)transform.position).normalized;
+        foreach (GameObject ball in balls)
+        {
+            ball.GetComponent<Ball>().Fire = dir;
+            a--;
+            Debug.Log("balls left = " + a);
+            yield return new WaitForSeconds(spawnDelay);  
+        }
+        //FindObjectOfType<DestroyBall>().DeleteAll();
+    }
+
+    //Update is called once per frame
     void Update()
     {
-        //InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
+        if (Input.GetMouseButtonDown(0))
+        {
+            //FindObjectOfType<DestroyBall>().DeleteAll();
+            Debug.Log("button pressed!");
+            SpawnNextBurst();
+            //FindObjectOfType<DestroyBall>().DeleteAll();
+        }
     }
 }
