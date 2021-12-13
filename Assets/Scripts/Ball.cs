@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     private Vector2 fire;
     public bool isColliding = true;
     // Start is called before the first frame update
-    
+
     public void ReadyToDestroy()
     {
         isColliding = false;
@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
         set { fire = value; }
     }
 
-    void Update()
+    void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(fire * power, ForceMode2D.Impulse);

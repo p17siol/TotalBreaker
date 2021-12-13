@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArrayToBox : MonoBehaviour
 {
@@ -11,16 +12,17 @@ public class ArrayToBox : MonoBehaviour
     [SerializeField] private Vector2 startPos;
     [SerializeField] private int rows;
     [SerializeField] private int columns;
-     
+    
     //private int[,] array2D = new intMakeArray();
 
     private int[,] MakeArray()
     {
-        int height = rows;    /*Number of rows*/
+        int height = rows;        /*Number of rows*/
         int width = columns;      /*Number of columns*/
 
         // Upper limit of hit range per team
-        int redTeam = 100; int greenTeam = 120; int blueTeam = 140; int purpleTeam = 160; int yellowTeam = 180;
+        //int redTeam = 100; int greenTeam = 120; int blueTeam = 140; int purpleTeam = 160; int orangeTeam = 180;
+        int redTeam = 60; int greenTeam = 80; int blueTeam = 100; int purpleTeam = 120; int orangeTeam = 140;
 
         // Percentage that defines the lower limit of hits range per team
         float percentage = 0.15f;
@@ -42,9 +44,6 @@ public class ArrayToBox : MonoBehaviour
             int threshMax = w + 1; //max limit fop upper range
             int threshMin = minInit + 2; //min limit for lower range
 
-            //Calc random lower limit for number of boxes
-            //System.Random rand = new System.Random();
-
             //Select a value randomly between minInit and min threshold
             int minNum = rand.Next(minInit, threshMin + 1);
             // Select a value randomly from higher values
@@ -57,7 +56,6 @@ public class ArrayToBox : MonoBehaviour
         // Calculate random initial position of boxes
         int BoxLoc(int w, int boxNumber)
         {
-            //System.Random rand = new System.Random();
             // Select a value randomly between 0 and width - boxnumber
             int boxStart = rand.Next(0, (w - boxNumber) + 1);
             return boxStart;
@@ -81,8 +79,8 @@ public class ArrayToBox : MonoBehaviour
         //Set color teamss
         int[] teamsList = { 0, 1, 2, 3, 4 };
         
-        // 2D array to associate teamw with colors 
-        int[,] teamsComplete = { { 0, redTeam }, { 1, greenTeam }, { 2, blueTeam }, { 3, purpleTeam }, { 4, yellowTeam } };
+        // 2D array to associate team with colors 
+        int[,] teamsComplete = { { 0, redTeam }, { 1, greenTeam }, { 2, blueTeam }, { 3, purpleTeam }, { 4, orangeTeam } };
 
         // Create a zero matrix with dimensions of board
         int[,] pista = new int[height, width];
@@ -139,6 +137,7 @@ public class ArrayToBox : MonoBehaviour
        
     void Start()
     {
+        
         ArrayToObjects(MakeArray());
     }
 
@@ -150,6 +149,8 @@ public class ArrayToBox : MonoBehaviour
 
         //Next Position indicates where the next block should spawn
         Vector2 nextPos = startPos;
+        //Color currentColor =new Color();
+                
         //Check all array positions:
         for (int i = array.GetLength(0) - 1; i >= 0; i--)
         {
@@ -158,8 +159,10 @@ public class ArrayToBox : MonoBehaviour
                 //If array position value is greater than 0: Spawn Object as child of parentObj
                 if (array[i, j] > 0)
                 {
+                    //currentColor = BoxTeamColor(array[i, j]);
                     GameObject block = Instantiate(blockPrefab, nextPos, transform.rotation, parentObject);
                     //Set blocks hitpoints equal to array value
+                    block.GetComponent<Box>().SetTeamColor(BoxTeamColor(array[i, j]));
                     block.GetComponent<Box>().SetHitPoints(array[i, j]);
                 }
                 //Calculate next X spawn position
@@ -169,6 +172,51 @@ public class ArrayToBox : MonoBehaviour
             nextPos.y += blockHeight;
             nextPos.x = startPos.x;
         }
+    }
+
+    // Set Box Initial Color
+    public Color32 BoxTeamColor(int hitsState)
+    {
+        int teamColor;
+        if (hitsState == 22)
+            teamColor = 1;
+        else if (hitsState <= 60)
+            teamColor = 2;
+        else if (hitsState <= 80)
+            teamColor = 3;
+        else if (hitsState <= 100)
+            teamColor = 4;
+        else if (hitsState <= 120)
+            teamColor = 5;
+        else 
+            teamColor = 6;
+
+        Color32 boxColor = new Color32();
+        Debug.Log("teamColor = " + teamColor);
+        switch (teamColor)
+        {
+            case 1:
+                boxColor = new Color32(140, 120, 30, 255);
+                break;
+            case 2:
+                boxColor = new Color32(222, 52, 52, 255);
+                break;
+            case 3:
+                boxColor = new Color32(36, 142, 36, 255);
+                break;
+            case 4:
+                boxColor = new Color32(71, 71, 226, 255);
+                break;
+            case 5:
+                boxColor = new Color32(128, 31, 128, 255);
+                break;
+            case 6:
+                boxColor = new Color32(193, 104, 14, 255);
+                break;
+            
+        }
+
+        return boxColor;
     }
 
     //Move Blocks Parent down
@@ -183,6 +231,5 @@ public class ArrayToBox : MonoBehaviour
         {
             NextLevel();
         }
-        
     }
 }

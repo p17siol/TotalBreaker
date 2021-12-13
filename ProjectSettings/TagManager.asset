@@ -17,7 +17,7 @@ TagManager:
   - 
   - ballLayer
   - Map Details
-  - 
+  - Block
   - 
   - 
   - 
@@ -48,4 +48,7 @@ TagManager:
     locked: 0
   - name: GameObjects
     uniqueID: 2189233387
+    locked: 0
+  - name: BoxText
+    uniqueID: 2717073853
     locked: 0

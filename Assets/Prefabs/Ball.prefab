@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8340385698724705267}
   - component: {fileID: 1842440563513773191}
-  - component: {fileID: 5923396039517682525}
   - component: {fileID: 8340385698724705264}
   - component: {fileID: 8340385698724705265}
   - component: {fileID: 8340385698724705270}
@@ -47,20 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d034ba2970d9149b3af6dc5c208819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 30
-  isColliding: 1
---- !u!114 &5923396039517682525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8340385698724705271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf8d4e9a432b6d49a0439706da4a43e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  power: 70
+  isColliding: 0
 --- !u!212 &8340385698724705264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -124,9 +111,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0026506484, y: -0.00088337064}
+  m_Offset: {x: 0.00030234456, y: 0.0005930662}
   serializedVersion: 2
-  m_Radius: 0.19698727
+  m_Radius: 0.26342955
 --- !u!50 &8340385698724705270
 Rigidbody2D:
   serializedVersion: 4
@@ -147,4 +134,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 0
