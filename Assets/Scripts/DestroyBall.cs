@@ -5,19 +5,34 @@ using UnityEngine;
 
 public class DestroyBall : MonoBehaviour
 {
-    private int cnt = 0;
-    //private int spawnNum;
+    private int destroyedBalls = 0;
+    Spawner spawner;
+    ArrayToBox moveDown;
+
+    private void Start()
+    {
+        spawner = FindObjectOfType<Spawner>();
+        moveDown = FindObjectOfType<ArrayToBox>();
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
 
         if (col.gameObject.tag == "Ball")
         {
-            cnt++;
-            col.gameObject.GetComponent<Ball>().ReadyToDestroy();
-            Debug.Log("Ball destroyed" + cnt);
+            destroyedBalls++;
+            Debug.Log("Ball destroyed" + destroyedBalls);
             Destroy(col.gameObject);
         }
-        Debug.Log("Balls destroyed = " + cnt);
+        Debug.Log("Balls destroyed = " + destroyedBalls);
+    }
 
+    void Update()
+    {
+        if (destroyedBalls >= spawner.GetSpawnNum())
+        {
+            moveDown.NextLevel();
+                destroyedBalls = 0;
+        }
     }
 }

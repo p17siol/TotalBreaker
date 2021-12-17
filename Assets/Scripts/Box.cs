@@ -80,7 +80,6 @@ public class Box : MonoBehaviour
                 Flashing();
                 hitText.text = hitPoints.ToString();
             }
-
         }
     }   
     

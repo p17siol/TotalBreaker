@@ -12,7 +12,7 @@ public class ArrayToBox : MonoBehaviour
     [SerializeField] private Vector2 startPos;
     [SerializeField] private int rows;
     [SerializeField] private int columns;
-    
+     
     //private int[,] array2D = new intMakeArray();
 
     private int[,] MakeArray()
@@ -137,7 +137,6 @@ public class ArrayToBox : MonoBehaviour
        
     void Start()
     {
-        
         ArrayToObjects(MakeArray());
     }
 

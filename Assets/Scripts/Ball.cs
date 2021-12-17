@@ -7,13 +7,13 @@ public class Ball : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField] private int power;
     private Vector2 fire;
-    public bool isColliding = true;
+    //public bool isColliding = true;
     // Start is called before the first frame update
 
-    public void ReadyToDestroy()
+    /*public void ReadyToDestroy()
     {
         isColliding = false;
-    }
+    }*/
 
     public Vector2 Fire
     {

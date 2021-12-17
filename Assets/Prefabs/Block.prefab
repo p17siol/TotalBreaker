@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: -2105733909
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7f0caa8b366db96419c2b2cd72813dbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e51802a8defd284f8c41fdb3d752873, type: 3}
   m_Color: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,8 +172,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.35
+  m_fontSizeBase: 0.35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -388,7 +388,7 @@ SpriteRenderer:
   m_SortingLayerID: -2105733909
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 904b8194ad295d942a6d0a42e263df1e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 059225923022ae3479c053357422abb9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

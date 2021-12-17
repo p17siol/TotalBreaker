@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnTime;
     [SerializeField] private float spawnDelay;
 
-    private int cnt = 0;
+    private int spawnedBalls = 0;
     private Vector2 dir;
 
     private Vector2 GetMousePosition()
@@ -26,6 +26,11 @@ public class Spawner : MonoBehaviour
        
     }
 
+    public int GetSpawnNum()
+    {
+        return spawnNum;
+    }
+
     public bool IsBurstActive()
     {
         Ball[] balls = FindObjectsOfType<Ball>();
@@ -38,10 +43,10 @@ public class Spawner : MonoBehaviour
     {
         GameObject ball = Instantiate(ballPrefab, transform.position, transform.rotation);
         ball.GetComponent<Ball>().Fire = dir;
-        cnt++;
-        if (cnt == spawnNum)
+        spawnedBalls++;
+        if (spawnedBalls == spawnNum)
         {
-            cnt = 0;
+            spawnedBalls = 0;
             CancelInvoke("SpawnNextBurst");
         }
     }
